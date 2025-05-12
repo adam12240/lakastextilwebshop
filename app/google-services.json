@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "175702750781",
+    "project_id": "lakastextilwebshop-5d526",
+    "storage_bucket": "lakastextilwebshop-5d526.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:175702750781:android:4c09b97b14b89cf057dc54",
+        "android_client_info": {
+          "package_name": "com.example.lakastextilwebshop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "175702750781-5qmoavcapf4srkdbt85738v3lual40m7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_Sp0tCFwtj8dzayPt92nFnkxTOdHCivQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "175702750781-5qmoavcapf4srkdbt85738v3lual40m7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
