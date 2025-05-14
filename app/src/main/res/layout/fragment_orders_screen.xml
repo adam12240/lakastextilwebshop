@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:textColor="@android:color/holo_red_dark"
             android:visibility="gone"
-            android:text="Error" />
+            android:text="Hiba" />
 
         <ProgressBar
             android:id="@+id/orders_progress"

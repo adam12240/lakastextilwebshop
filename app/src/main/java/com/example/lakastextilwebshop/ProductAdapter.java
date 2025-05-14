@@ -34,6 +34,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.productPrice.setText(String.format("%.2f €", product.getPrice()));
         holder.productDesc.setText(product.getDescription());
         holder.itemView.setOnClickListener(v -> listener.onProductClick(product));
+
     }
 
     @Override

@@ -1,18 +1,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_home"
-        android:title="Home"
-        android:icon="@android:drawable/ic_menu_view"/>
+        android:title="Főoldal"
+        android:icon="@drawable/ic_home"/>
     <item
         android:id="@+id/nav_products"
-        android:title="Products"
-        android:icon="@android:drawable/ic_menu_agenda"/>
+        android:title="Termékek"
+        android:icon="@drawable/ic_view_list"/>
     <item
         android:id="@+id/nav_cart"
-        android:title="Cart"
-        android:icon="@android:drawable/ic_menu_add"/>
+        android:title="Kosár"
+        android:icon="@drawable/ic_shopping_cart"/>
     <item
         android:id="@+id/nav_profile"
-        android:title="Profile"
-        android:icon="@android:drawable/ic_menu_myplaces"/>
+        android:title="Profil"
+        android:icon="@drawable/ic_person"/>
 </menu>

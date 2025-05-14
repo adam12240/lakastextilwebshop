@@ -18,13 +18,13 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="Admin Management"
+                android:text="Admin oldal"
                 android:textSize="24sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:text="Add New Product"
+                android:text="Új termék hozzáadása"
                 android:textSize="18sp"
                 android:layout_marginTop="16dp"
                 android:layout_width="wrap_content"
@@ -32,26 +32,26 @@
 
             <EditText
                 android:id="@+id/product_name"
-                android:hint="Name"
+                android:hint="Név"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <EditText
                 android:id="@+id/product_price"
-                android:hint="Price"
+                android:hint="Ár"
                 android:inputType="numberDecimal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <EditText
                 android:id="@+id/product_desc"
-                android:hint="Description (optional)"
+                android:hint="Leírás"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/upload_button"
-                android:text="Upload Product"
+                android:text="Termék feltöltése"
                 android:layout_marginTop="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -70,11 +70,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <TextView
+                android:id="@+id/admin_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nyomj meg egy felhasználót, hogy admin lehessen"
+                android:textColor="@android:color/darker_gray"
+                android:layout_marginBottom="8dp"/>
+
             <ListView
                 android:id="@+id/users_list"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="8dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/products_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:clipToPadding="false"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:overScrollMode="never" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

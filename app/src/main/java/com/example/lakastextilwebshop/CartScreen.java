@@ -1,7 +1,6 @@
 package com.example.lakastextilwebshop;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +9,7 @@ import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,6 @@ import java.util.List;
 public class CartScreen extends Fragment {
     private ListView cartListView;
     private TextView totalTextView, emptyTextView;
-    private Button checkoutButton, ordersButton;
     private CartViewModel cartViewModel;
 
     @Nullable
@@ -28,15 +27,15 @@ public class CartScreen extends Fragment {
         cartListView = view.findViewById(R.id.cart_list);
         totalTextView = view.findViewById(R.id.total_text);
         emptyTextView = view.findViewById(R.id.empty_text);
-        checkoutButton = view.findViewById(R.id.checkout_button);
-        ordersButton = view.findViewById(R.id.orders_button);
+        Button checkoutButton = view.findViewById(R.id.checkout_button);
+        Button ordersButton = view.findViewById(R.id.orders_button);
 
-        cartViewModel = CartViewModel.getInstance();
+        cartViewModel = new ViewModelProvider(requireActivity()).get(CartViewModel.class);
 
-        updateCartUI();
+        cartViewModel.getCartItems().observe(getViewLifecycleOwner(), this::updateCartUI);
 
         checkoutButton.setOnClickListener(v -> {
-            List<CartItem> cartItems = cartViewModel.getCartItems();
+            List<CartItem> cartItems = cartViewModel.getCartItems().getValue();
             if (cartItems == null || cartItems.isEmpty()) {
                 Toast.makeText(getContext(), "Your cart is empty.", Toast.LENGTH_SHORT).show();
                 return;
@@ -56,20 +55,17 @@ public class CartScreen extends Fragment {
             }
         });
 
-        ordersButton.setOnClickListener(v -> {
-            requireActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, new OrdersScreen())
-                    .addToBackStack(null)
-                    .commit();
-        });
+        ordersButton.setOnClickListener(v -> requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new OrdersScreen())
+                .addToBackStack(null)
+                .commit());
 
         return view;
     }
 
     @SuppressLint({"DefaultLocale", "SetTextI18n"})
-    private void updateCartUI() {
-        List<CartItem> cartItems = cartViewModel.getCartItems();
+    private void updateCartUI(List<CartItem> cartItems) {
         if (cartItems == null || cartItems.isEmpty()) {
             emptyTextView.setVisibility(View.VISIBLE);
             cartListView.setVisibility(View.GONE);
@@ -86,7 +82,7 @@ public class CartScreen extends Fragment {
                     total += item.getProduct().getPrice() * item.getQuantity();
                 }
             }
-            cartListView.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, itemStrings));
+            cartListView.setAdapter(new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, itemStrings));
             totalTextView.setText("Total: " + String.format("%.2f", total) + " €");
         }
     }

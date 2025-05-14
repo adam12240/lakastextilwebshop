@@ -1,15 +1,18 @@
 package com.example.lakastextilwebshop;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.*;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.*;
 import java.util.*;
 
-public class AdminUserManagementActivity extends AppCompatActivity {
+public class AdminUserManagementFragment extends Fragment {
     private FirebaseAuth auth;
     private FirebaseFirestore db;
     private ListView usersListView;
@@ -21,29 +24,31 @@ public class AdminUserManagementActivity extends AppCompatActivity {
     private boolean isCurrentUserAdmin = false;
     private String currentUserUid;
 
+    @Nullable
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_user_management);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_admin_user_management, container, false);
 
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        usersListView = findViewById(R.id.users_list);
-        nameEdit = findViewById(R.id.product_name);
-        priceEdit = findViewById(R.id.product_price);
-        descEdit = findViewById(R.id.product_desc);
-        uploadButton = findViewById(R.id.upload_button);
-        messageText = findViewById(R.id.message_text);
+        usersListView = view.findViewById(R.id.users_list);
+        nameEdit = view.findViewById(R.id.product_name);
+        priceEdit = view.findViewById(R.id.product_price);
+        descEdit = view.findViewById(R.id.product_desc);
+        uploadButton = view.findViewById(R.id.upload_button);
+        messageText = view.findViewById(R.id.message_text);
 
         if (auth.getCurrentUser() == null) {
-            messageText.setText("Not signed in.");
-            return;
+            messageText.setText("Nem vagy bejelentkezve");
+            return view;
         }
         currentUserUid = auth.getCurrentUser().getUid();
 
         checkAdminAndLoad();
 
         uploadButton.setOnClickListener(v -> uploadProduct());
+
+        return view;
     }
 
     private void checkAdminAndLoad() {
@@ -54,7 +59,7 @@ public class AdminUserManagementActivity extends AppCompatActivity {
                     if (isCurrentUserAdmin) {
                         loadUsers();
                     } else {
-                        messageText.setText("Access denied. Admins only.");
+                        messageText.setText("Ehhez nem férhetsz hozzá.");
                     }
                 });
     }
@@ -72,13 +77,13 @@ public class AdminUserManagementActivity extends AppCompatActivity {
                     userStrings.add(email + (isAdmin ? " (admin)" : ""));
                 }
             }
-            usersAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, userStrings);
+            usersAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, userStrings);
             usersListView.setAdapter(usersAdapter);
 
             usersListView.setOnItemClickListener((parent, view, position, id) -> {
                 AppUser user = users.get(position);
                 if (user.uid.equals(currentUserUid)) {
-                    Toast.makeText(this, "Cannot change your own admin status.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Saját magadat nem tudod lefokozni!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 toggleAdmin(user);
@@ -92,9 +97,9 @@ public class AdminUserManagementActivity extends AppCompatActivity {
             transaction.update(userRef, "isAdmin", !user.isAdmin);
             return null;
         }).addOnSuccessListener(aVoid -> {
-            messageText.setText("Updated " + user.email);
+            messageText.setText("Módosítottam: " + user.email);
             loadUsers();
-        }).addOnFailureListener(e -> messageText.setText("Update failed."));
+        }).addOnFailureListener(e -> messageText.setText("Módosítás nem sikerült: " + e.getMessage()));
     }
 
     private void uploadProduct() {
@@ -105,11 +110,11 @@ public class AdminUserManagementActivity extends AppCompatActivity {
         try {
             price = Double.parseDouble(priceStr);
         } catch (Exception e) {
-            messageText.setText("Name and valid price required.");
+            messageText.setText("Név és érvényes ár szükséges.");
             return;
         }
         if (name.isEmpty()) {
-            messageText.setText("Name and valid price required.");
+            messageText.setText("Név és érvényes ár szükséges.");
             return;
         }
         db.collection("products").get().addOnSuccessListener(result -> {
@@ -124,11 +129,11 @@ public class AdminUserManagementActivity extends AppCompatActivity {
             newProduct.put("price", price);
             newProduct.put("description", desc);
             db.collection("products").add(newProduct).addOnSuccessListener(ref -> {
-                messageText.setText("Product uploaded.");
+                messageText.setText("Termék feltöltve");
                 nameEdit.setText("");
                 priceEdit.setText("");
                 descEdit.setText("");
-            }).addOnFailureListener(e -> messageText.setText("Failed to upload product."));
+            }).addOnFailureListener(e -> messageText.setText("Nem sikerült feltölteni a terméket."));
         });
     }
 

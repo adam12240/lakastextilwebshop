@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:padding="16dp">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/products_error"
@@ -9,7 +11,7 @@
         android:layout_height="wrap_content"
         android:textColor="@android:color/holo_red_dark"
         android:visibility="gone"
-        android:text="Error" />
+        android:text="Hiba" />
 
     <ProgressBar
         android:id="@+id/products_progress"
@@ -18,34 +20,25 @@
         android:layout_gravity="center"
         android:visibility="gone" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Kiemelt termékek"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:paddingTop="8dp"
-        android:paddingBottom="4dp" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/featured_recycler"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:orientation="horizontal"
-        android:paddingBottom="8dp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Termékek"
-        android:textStyle="bold"
-        android:textSize="22sp"
-        android:paddingTop="8dp"
-        android:paddingBottom="4dp" />
+        android:layout_marginBottom="16dp"
+        android:clipToPadding="false"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:overScrollMode="never" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/products_recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="56dp"
+        android:overScrollMode="never" />
+
 </LinearLayout>

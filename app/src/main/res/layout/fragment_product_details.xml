@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="24sp"
-            android:text="Product Name" />
+            android:text="Termék neve" />
 
         <TextView
             android:id="@+id/product_price"
@@ -32,7 +32,7 @@
             android:id="@+id/product_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Description"
+            android:text="Leírás"
             android:paddingTop="8dp"
             android:paddingBottom="16dp" />
 
@@ -40,7 +40,7 @@
             android:id="@+id/add_to_cart_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add to Cart" />
+            android:text="Kosárba" />
 
         <ProgressBar
             android:id="@+id/product_progress"

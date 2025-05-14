@@ -14,14 +14,14 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:text="Cart"
+            android:text="Kosár"
             android:textSize="24sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/empty_text"
-            android:text="The cart is empty."
+            android:text="Ez a kosár üres."
             android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
 
         <TextView
             android:id="@+id/total_text"
-            android:text="Total: 0.00 €"
+            android:text="Összesen: 0.00 €"
             android:textSize="18sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,14 +43,14 @@
 
         <Button
             android:id="@+id/checkout_button"
-            android:text="Checkout"
+            android:text="Pénztárhoz"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp" />
 
         <Button
             android:id="@+id/orders_button"
-            android:text="View Orders"
+            android:text="Eddigi vásárlások"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp" />

@@ -35,17 +35,25 @@
         android:paddingTop="8dp"/>
 
     <Button
+        android:id="@+id/profile_admin_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Admin Panel"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"/>
+
+    <Button
         android:id="@+id/profile_sign_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign in with Google"
+        android:text="Jelentkezz be Google fiókkal"
         android:layout_marginTop="24dp"/>
 
     <Button
         android:id="@+id/profile_sign_out"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign out"
+        android:text="Kijelentkezés"
         android:layout_marginTop="8dp"
         android:visibility="gone"/>
 
@@ -54,5 +62,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
+        android:layout_marginTop="16dp"/>
+
+    <FrameLayout
+        android:id="@+id/admin_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"/>
 </LinearLayout>

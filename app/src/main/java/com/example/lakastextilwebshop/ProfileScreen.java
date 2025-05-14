@@ -25,6 +25,7 @@ public class ProfileScreen extends Fragment {
     private GoogleSignInClient googleSignInClient;
     private TextView nameText, emailText, adminText, errorText;
     private Button signInBtn, signOutBtn;
+    private Button adminPanelBtn; // Add this field
     private ProgressBar progressBar;
 
     @Override
@@ -38,6 +39,7 @@ public class ProfileScreen extends Fragment {
         signInBtn = view.findViewById(R.id.profile_sign_in);
         signOutBtn = view.findViewById(R.id.profile_sign_out);
         progressBar = view.findViewById(R.id.profile_progress);
+        adminPanelBtn = view.findViewById(R.id.profile_admin_panel); // Initialize
 
         auth = FirebaseAuth.getInstance();
 
@@ -49,6 +51,12 @@ public class ProfileScreen extends Fragment {
 
         signInBtn.setOnClickListener(v -> signIn());
         signOutBtn.setOnClickListener(v -> signOut());
+        adminPanelBtn.setOnClickListener(v -> {
+            getChildFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.admin_fragment_container, new AdminUserManagementFragment())
+                    .commit();
+        });
 
         updateUI(auth.getCurrentUser());
 
@@ -64,6 +72,12 @@ public class ProfileScreen extends Fragment {
     private void signOut() {
         auth.signOut();
         googleSignInClient.signOut();
+        Fragment adminFragment = getChildFragmentManager().findFragmentById(R.id.admin_fragment_container);
+        if (adminFragment != null) {
+            getChildFragmentManager().beginTransaction()
+                    .remove(adminFragment)
+                    .commit();
+        }
         updateUI(null);
     }
 
@@ -75,6 +89,7 @@ public class ProfileScreen extends Fragment {
             adminText.setVisibility(View.GONE);
             signInBtn.setVisibility(View.VISIBLE);
             signOutBtn.setVisibility(View.GONE);
+            adminPanelBtn.setVisibility(View.GONE); // Hide for non-logged-in users
             errorText.setText("");
         } else {
             nameText.setText(user.getDisplayName() != null ? user.getDisplayName() : "");
@@ -91,21 +106,26 @@ public class ProfileScreen extends Fragment {
             if (!doc.exists()) {
                 userDoc.set(new User(user.getEmail(), false)).addOnSuccessListener(aVoid -> {
                     adminText.setVisibility(View.GONE);
+                    adminPanelBtn.setVisibility(View.GONE);
                     errorText.setText("");
                 }).addOnFailureListener(e -> {
                     adminText.setVisibility(View.GONE);
-                    errorText.setText("Failed to create user profile.");
+                    adminPanelBtn.setVisibility(View.GONE);
+                    errorText.setText("Nem sikerült létrehozni a felhasználót.");
                 });
             } else {
                 Boolean isAdmin = doc.getBoolean("isAdmin");
                 if (isAdmin == null) {
                     adminText.setVisibility(View.GONE);
+                    adminPanelBtn.setVisibility(View.GONE);
                     errorText.setText("");
                 } else if (isAdmin) {
                     adminText.setVisibility(View.VISIBLE);
-                    errorText.setText("You are an admin.");
+                    adminPanelBtn.setVisibility(View.VISIBLE);
+                    errorText.setText("Admin vagy.");
                 } else {
                     adminText.setVisibility(View.GONE);
+                    adminPanelBtn.setVisibility(View.GONE);
                     errorText.setText("");
                 }
             }
@@ -125,12 +145,12 @@ public class ProfileScreen extends Fragment {
                         updateUI(auth.getCurrentUser());
                         errorText.setText("");
                     } else {
-                        errorText.setText("Sign-in failed.");
+                        errorText.setText("Nem sikerült bejelentkezni.");
                     }
                 });
             } catch (Exception e) {
                 progressBar.setVisibility(View.GONE);
-                errorText.setText("Sign-in failed.");
+                errorText.setText("Nem sikerült bejelentkezni.");
             }
         }
     }
