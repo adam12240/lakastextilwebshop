@@ -8,51 +8,51 @@
     android:layout_margin="16dp">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <TextView
-            android:text="Kosár"
-            android:textSize="24sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Kosár"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/empty_text"
-            android:text="Ez a kosár üres."
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:text="Ez a kosár üres."
+            android:visibility="gone" />
 
         <ListView
             android:id="@+id/cart_list"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_width="339dp"
+            android:layout_height="400dp"
             android:layout_marginTop="8dp" />
 
         <TextView
             android:id="@+id/total_text"
-            android:text="Összesen: 0.00 €"
-            android:textSize="18sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:text="Összesen: 0.00 €"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/checkout_button"
-            android:text="Pénztárhoz"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:text="Pénztárhoz" />
 
         <Button
             android:id="@+id/orders_button"
-            android:text="Eddigi vásárlások"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:text="Eddigi vásárlások" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

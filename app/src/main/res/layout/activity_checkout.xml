@@ -63,7 +63,7 @@
 
             <Button
                 android:id="@+id/checkout_button"
-                android:text="Pénztárhoz"
+                android:text="Fizetés"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

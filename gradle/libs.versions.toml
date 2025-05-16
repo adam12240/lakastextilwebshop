@@ -1,10 +1,12 @@
 [versions]
 agp = "8.10.0"
+appcompat = "1.7.0"
 firebaseBom = "33.13.0"
 coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
+lifecycleLivedata = "2.9.0"
 lifecycleRuntimeKtx = "2.9.0"
 activityCompose = "1.10.1"
 composeBom = "2025.05.00"
@@ -13,18 +15,30 @@ navigationCompose = "2.9.0"
 
 firebaseAuthKtx = "23.2.0"
 firebaseFirestoreKtx = "25.1.4"
+navigationFragment = "2.9.0"
+navigationUi = "2.9.0"
 playServicesAuth = "21.3.0"
 constraintlayout = "2.2.1"
+playServicesAuthVersion = "20.7.0"
 recyclerview = "1.4.0"
 material = "1.12.0"
+roomRuntime = "2.7.1"
 
 
 [libraries]
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-lifecycle-livedata = { module = "androidx.lifecycle:lifecycle-livedata", version.ref = "lifecycleLivedata" }
+androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycleLivedata" }
 androidx-navigation-compose-v275 = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "navigationFragment" }
+androidx-navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "navigationUi" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 constraintlayout-compose = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version = "1.1.1" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+google-firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -37,6 +51,8 @@ androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 
 firebase_auth_ktx = { module = "com.google.firebase:firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
 firebase_firestore_ktx = { module = "com.google.firebase:firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
+material3 = { module = "androidx.compose.material3:material3" }
+play-services-auth-v2070 = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuthVersion" }
 play_services_auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 
 androidx-compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version = "2.9.0" }
@@ -47,9 +63,14 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 compose-navigation = { group = "androidx.wear.compose", name = "compose-navigation", version.ref = "composeNavigation" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+ui = { module = "androidx.compose.ui:ui" }
 ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
 androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
+ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 
 
 

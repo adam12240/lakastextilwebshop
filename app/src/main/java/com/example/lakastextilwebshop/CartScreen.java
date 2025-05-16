@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CartScreen extends Fragment {
@@ -37,7 +36,7 @@ public class CartScreen extends Fragment {
         checkoutButton.setOnClickListener(v -> {
             List<CartItem> cartItems = cartViewModel.getCartItems().getValue();
             if (cartItems == null || cartItems.isEmpty()) {
-                Toast.makeText(getContext(), "Your cart is empty.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "A kosarad üres.", Toast.LENGTH_SHORT).show();
                 return;
             }
             if (FirebaseAuth.getInstance().getCurrentUser() == null) {
@@ -69,21 +68,19 @@ public class CartScreen extends Fragment {
         if (cartItems == null || cartItems.isEmpty()) {
             emptyTextView.setVisibility(View.VISIBLE);
             cartListView.setVisibility(View.GONE);
-            totalTextView.setText("Total: 0.00 €");
+            totalTextView.setText("Összesen: 0.00 €");
         } else {
             emptyTextView.setVisibility(View.GONE);
             cartListView.setVisibility(View.VISIBLE);
-            List<String> itemStrings = new ArrayList<>();
             double total = 0.0;
             for (CartItem item : cartItems) {
                 if (item != null && item.getProduct() != null) {
-                    itemStrings.add(item.getProduct().getName() + " x" + item.getQuantity() + " - " +
-                            String.format("%.2f", item.getProduct().getPrice() * item.getQuantity()) + " €");
                     total += item.getProduct().getPrice() * item.getQuantity();
                 }
             }
-            cartListView.setAdapter(new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, itemStrings));
-            totalTextView.setText("Total: " + String.format("%.2f", total) + " €");
+            CartItemAdapter adapter = new CartItemAdapter(requireContext(), cartItems, item -> cartViewModel.removeFromCart(item.getProduct()));
+            cartListView.setAdapter(adapter);
+            totalTextView.setText("Összesen: " + String.format("%.2f", total) + " €");
         }
     }
 }

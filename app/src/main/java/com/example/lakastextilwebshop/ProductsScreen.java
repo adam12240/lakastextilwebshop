@@ -1,5 +1,6 @@
 package com.example.lakastextilwebshop;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,11 +51,13 @@ public class ProductsScreen extends Fragment {
         return view;
     }
 
+    @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
     private void loadProducts() {
         progressBar.setVisibility(View.VISIBLE);
         errorText.setVisibility(View.GONE);
 
         FirebaseFirestore.getInstance().collection("products")
+                .orderBy("name")
                 .get()
                 .addOnSuccessListener(result -> {
                     products.clear();

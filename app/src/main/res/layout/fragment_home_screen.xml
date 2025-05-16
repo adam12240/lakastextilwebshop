@@ -35,4 +35,12 @@
         android:paddingEnd="16dp"
         android:overScrollMode="never" />
 
+    <Button
+        android:id="@+id/about_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rólunk"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"/>
+
 </LinearLayout>

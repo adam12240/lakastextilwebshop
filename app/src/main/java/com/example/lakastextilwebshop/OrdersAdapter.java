@@ -1,5 +1,6 @@
 package com.example.lakastextilwebshop;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +25,12 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
         return new OrderViewHolder(v);
     }
 
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         Order order = orders.get(position);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
-        holder.dateText.setText("Order: " + sdf.format(order.timestamp.toDate()));
+        holder.dateText.setText("Rendelés: " + sdf.format(order.timestamp.toDate()));
         StringBuilder itemsText = new StringBuilder();
         for (OrderItem item : order.items) {
             itemsText.append("- ").append(item.name)

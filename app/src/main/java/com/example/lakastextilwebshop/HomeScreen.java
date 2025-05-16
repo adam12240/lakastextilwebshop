@@ -1,9 +1,12 @@
 package com.example.lakastextilwebshop;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +24,7 @@ public class HomeScreen extends Fragment {
     private FeaturedProductsAdapter featuredAdapter;
     private List<Product> featuredProducts = new ArrayList<>();
 
+    @SuppressLint("SetTextI18n")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,24 +38,31 @@ public class HomeScreen extends Fragment {
         categoryRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         categoryRecycler.setAdapter(categoryAdapter);
 
-        featuredAdapter = new FeaturedProductsAdapter(featuredProducts, product -> {
-            requireActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, ProductDetailsScreen.newInstance(product.getId()))
-                    .addToBackStack(null)
-                    .commit();
-        });
+        featuredAdapter = new FeaturedProductsAdapter(featuredProducts, product -> requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, ProductDetailsScreen.newInstance(product.getId()))
+                .addToBackStack(null)
+                .commit());
         featuredRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         featuredRecycler.setAdapter(featuredAdapter);
 
         TextView featuredTitle = view.findViewById(R.id.featured_title);
         featuredTitle.setText("Kiemelt termékek");
+        Button aboutBtn = view.findViewById(R.id.about_button);
+        aboutBtn.setOnClickListener(v -> v.animate().alpha(0.5f).setDuration(100).withEndAction(() -> {
+            v.animate().alpha(1f).setDuration(100).start();
+            Intent intent = new Intent(requireContext(), AboutActivity.class);
+            startActivity(intent);
+        }).start());
 
         loadFeaturedProducts();
+
+
 
         return view;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void loadFeaturedProducts() {
         FirebaseFirestore.getInstance().collection("products")
                 .get()

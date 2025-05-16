@@ -55,7 +55,29 @@
         android:layout_height="wrap_content"
         android:text="Kijelentkezés"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="15dp"
         android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/profile_location_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Helymeghatározás" />
+
+    <TextView
+        android:id="@+id/profile_location_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:paddingTop="8dp"/>
+
+    <Button
+        android:id="@+id/profile_reminder_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Emlékeztető beállítása"
+        android:layout_marginTop="8dp"/>
+
 
     <ProgressBar
         android:id="@+id/profile_progress"
@@ -63,6 +85,8 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
         android:layout_marginTop="16dp"/>
+
+
 
     <FrameLayout
         android:id="@+id/admin_fragment_container"

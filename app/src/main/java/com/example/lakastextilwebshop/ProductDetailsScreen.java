@@ -99,7 +99,12 @@ public class ProductDetailsScreen extends Fragment {
 
         addToCartBtn.setOnClickListener(v -> {
             cartViewModel.addToCart(product, 1);
-            Toast.makeText(getContext(), "Added to cart: " + product.getName(), Toast.LENGTH_SHORT).show();
+
+            v.animate().scaleX(1.2f).scaleY(1.2f).setDuration(100)
+                .withEndAction(() -> v.animate().scaleX(1f).scaleY(1f).setDuration(100).start())
+                .start();
+
+            Toast.makeText(getContext(), "Hozzáadva a kosárhoz: " + product.getName(), Toast.LENGTH_SHORT).show();
         });
     }
 }

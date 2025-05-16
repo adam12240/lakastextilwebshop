@@ -1,5 +1,6 @@
 package com.example.lakastextilwebshop;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class OrdersScreen extends Fragment {
 
@@ -45,13 +47,14 @@ public class OrdersScreen extends Fragment {
         return view;
     }
 
+    @SuppressLint({"NotifyDataSetChanged", "SetTextI18n"})
     private void loadOrders() {
         String userId = FirebaseAuth.getInstance().getCurrentUser() != null
                 ? FirebaseAuth.getInstance().getCurrentUser().getUid()
                 : null;
 
         if (userId == null) {
-            showError("Please log in to view your orders.");
+            showError("Kérlek jelentkezz be a rendeléseid megtekintéséhez.");
             return;
         }
 
@@ -69,10 +72,10 @@ public class OrdersScreen extends Fragment {
                         List<Map<String, Object>> itemsList = (List<Map<String, Object>>) doc.get("items");
                         if (itemsList != null) {
                             for (Map<String, Object> item : itemsList) {
-                                int productId = ((Long) item.get("productId")).intValue();
+                                int productId = ((Long) Objects.requireNonNull(item.get("productId"))).intValue();
                                 String name = (String) item.get("name");
                                 double price = (Double) item.get("price");
-                                int quantity = ((Long) item.get("quantity")).intValue();
+                                int quantity = ((Long) Objects.requireNonNull(item.get("quantity"))).intValue();
                                 items.add(new OrderItem(productId, name, price, quantity));
                             }
                         }
@@ -82,7 +85,7 @@ public class OrdersScreen extends Fragment {
                     adapter.notifyDataSetChanged();
                     progressBar.setVisibility(View.GONE);
                     errorText.setVisibility(orders.isEmpty() ? View.VISIBLE : View.GONE);
-                    if (orders.isEmpty()) errorText.setText("No previous orders.");
+                    if (orders.isEmpty()) errorText.setText("Nincsenek rendeléseid.");
                 })
                 .addOnFailureListener(e -> {
                     showError("Error: " + e.getLocalizedMessage());

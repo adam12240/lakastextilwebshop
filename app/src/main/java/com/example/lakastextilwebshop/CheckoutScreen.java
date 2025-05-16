@@ -49,22 +49,25 @@ public class CheckoutScreen extends Fragment {
             updateCartUI(currentCartItems);
         });
 
-        cancelButton.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
+        cancelButton.setOnClickListener(v ->{
+                    requireActivity().getSupportFragmentManager().popBackStack();
+            v.animate().alpha(0.5f).setDuration(100).withEndAction(() -> v.animate().alpha(1f).setDuration(100).start()).start();
+        });
 
         checkoutButton.setOnClickListener(v -> {
             if (isLoading) return;
             if (auth.getCurrentUser() == null) {
-                messageTextView.setText("Please sign in to complete purchase.");
+                messageTextView.setText("Jelentkezz be a vásárláshoz.");
                 return;
             }
             List<CartItem> cartItems = currentCartItems;
             if (cartItems == null || cartItems.isEmpty()) {
-                messageTextView.setText("Cart is empty.");
+                messageTextView.setText("A kosarad üres.");
                 return;
             }
             for (CartItem item : cartItems) {
                 if (item == null || item.getProduct() == null) {
-                    messageTextView.setText("Invalid item in cart.");
+                    messageTextView.setText("Helytelen termékek a kosárban.");
                     return;
                 }
             }
@@ -92,9 +95,8 @@ public class CheckoutScreen extends Fragment {
                     .add(order)
                     .addOnSuccessListener(docRef -> {
                         cartViewModel.clearCart();
-                        // updateCartUI will be called by observer
                         showSuccessNotification();
-                        messageTextView.setText("Purchase successful!");
+                        messageTextView.setText("A vásárlás sikeres.");
                         isLoading = false;
                         progressBar.setVisibility(View.GONE);
                     })
@@ -133,8 +135,8 @@ public class CheckoutScreen extends Fragment {
         NotificationChannel channel = new NotificationChannel(channelId, "Orders", NotificationManager.IMPORTANCE_DEFAULT);
         notificationManager.createNotificationChannel(channel);
         Notification notification = new Notification.Builder(context, channelId)
-                .setContentTitle("Purchase Successful")
-                .setContentText("Thank you for your order!")
+                .setContentTitle("Sikeres vásárlás")
+                .setContentText("Köszönjük a vásárlást! A rendelésed feldolgozás alatt áll.")
                 .setSmallIcon(android.R.drawable.ic_dialog_info)
                 .build();
         notificationManager.notify(1, notification);

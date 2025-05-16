@@ -1,9 +1,12 @@
 package com.example.lakastextilwebshop;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
@@ -20,6 +23,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         this.listener = listener;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // Use the correct layout for products
@@ -27,6 +31,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         return new ViewHolder(view);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Product product = products.get(position);
